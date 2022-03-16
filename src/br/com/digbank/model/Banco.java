@@ -13,6 +13,7 @@ public class Banco {
 
     /**
      * Adiciona uma nova conta ao banco
+     *
      * @param conta
      */
     public void adicionarConta(Conta conta) {
@@ -51,6 +52,21 @@ public class Banco {
      * @return
      */
     public List<Conta> buscarConta(String nomeCliente) {
-        return null;
+        List<Conta> contasEncontradas = new ArrayList<Conta>();
+        String[] arrayNome = nomeCliente.split(" ");
+        for (Conta conta : contas) {
+            boolean match = true;
+            for (String parteNome : arrayNome) {
+                if (!conta.cliente.getNome().contains(parteNome)) {
+                    match = false;
+                }
+
+            }
+            if (match) {
+                contasEncontradas.add(conta);
+            }
+        }
+
+        return contasEncontradas;
     }
 }

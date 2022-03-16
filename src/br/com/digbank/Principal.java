@@ -3,6 +3,8 @@ package br.com.digbank;
 import br.com.digbank.exceptions.ContaNaoCadastradaExcetpion;
 import br.com.digbank.model.*;
 
+import java.util.List;
+
 public class Principal {
     public static void main(String[] args) {
         Banco banco = new Banco();
@@ -23,17 +25,29 @@ public class Principal {
         Conta contaPoupancaPedro = new ContaPoupanca(pedro, agencia);
         contaPoupancaPedro.depositar(150.90);
 
+        Conta contaCorrentePedro = new ContaPoupanca(pedro, agencia);
+        contaPoupancaPedro.depositar(250.30);
+
         banco.adicionarConta(contaCorrentePaulo);
         banco.adicionarConta(contaPoupancaPedro);
+        banco.adicionarConta(contaCorrentePedro);
 
         contaCorrentePaulo.imprimirExtratoConta();
         contaPoupancaPedro.imprimirExtratoConta();
 
         banco.listarContas();
 
+        List<Conta> contasEncontradas = banco.buscarConta("Pedro Maia");
+        if (contasEncontradas != null && !contasEncontradas.isEmpty()) {
+            System.out.println("###### RELAÇÃO DE CONTAS ENCONTRADAS #####");
+            for (Conta conta : contasEncontradas) {
+                System.out.println(conta.toString());
+            }
+        }
+
         try {
             System.out.println("\n##### BUSCANDO CONTA CADASTRADA #####");
-            Conta contaEncontrada = banco.buscarConta(1,2);
+            Conta contaEncontrada = banco.buscarConta(1, 3);
             System.out.println("\n##### CONTA LOCALIZADA #####");
 
             System.out.println(contaEncontrada.toString());
